@@ -14,6 +14,7 @@
 $.fn.popup = function(parameters) {
   var
     $allModules     = $(this),
+    $document       = $(document),
 
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.popup.settings, parameters)
@@ -204,6 +205,7 @@ $.fn.popup = function(parameters) {
                 left   : (popup.position.left < boundary.left)
               };
             }
+            module.verbose('Checking if outside viewable area', popup.position);
             // return only boundaries that have been surpassed
             $.each(offstage, function(direction, isOffstage) {
               if(isOffstage) {
@@ -253,11 +255,13 @@ $.fn.popup = function(parameters) {
           // refresh state of module
           module.refresh();
           if( !$module.hasClass(className.visible) ) {
-            module.hideAll();
+            if(settings.on == 'click') {
+              module.hideAll();
+            }
             module.show();
           }
           else {
-            module.hide();
+            // module.hide();
           }
         },
 
@@ -289,9 +293,10 @@ $.fn.popup = function(parameters) {
           switch(position) {
             case 'top left':
               positioning = {
-                top    : 'auto',
                 bottom :  parentHeight - offset.top + settings.distanceAway,
-                left   : offset.left + arrowOffset
+                right  :  parentWidth - offset.left - width - arrowOffset,
+                top    : 'auto',
+                left   : 'auto'
               };
             break;
             case 'top center':
@@ -304,10 +309,9 @@ $.fn.popup = function(parameters) {
             break;
             case 'top right':
               positioning = {
-                bottom :  parentHeight - offset.top + settings.distanceAway,
-                right  :  parentWidth - offset.left - width - arrowOffset,
                 top    : 'auto',
-                left   : 'auto'
+                bottom :  parentHeight - offset.top + settings.distanceAway,
+                left   : offset.left + arrowOffset
               };
             break;
             case 'left center':
@@ -329,9 +333,9 @@ $.fn.popup = function(parameters) {
             case 'bottom left':
               positioning = {
                 top    :  offset.top + height + settings.distanceAway,
-                left   : offset.left + arrowOffset,
-                bottom : 'auto',
-                right  : 'auto'
+                right  : parentWidth - offset.left - width - arrowOffset,
+                left   : 'auto',
+                bottom : 'auto'
               };
             break;
             case 'bottom center':
@@ -345,9 +349,9 @@ $.fn.popup = function(parameters) {
             case 'bottom right':
               positioning = {
                 top    :  offset.top + height + settings.distanceAway,
-                right  : parentWidth - offset.left - width - arrowOffset,
-                left   : 'auto',
-                bottom : 'auto'
+                left   : offset.left + arrowOffset,
+                bottom : 'auto',
+                right  : 'auto'
               };
             break;
           }
@@ -357,11 +361,8 @@ $.fn.popup = function(parameters) {
           });
           // tentatively place on stage
           $popup
-            .removeAttr('style')
-            .removeClass('top right bottom left center')
+            .attr('class', position + ' ' + className.popup + ' ' + className.loading)
             .css(positioning)
-            .addClass(position)
-            .addClass(className.loading)
           ;
           // check if is offstage
           offstagePosition = module.get.offstagePosition();
@@ -412,7 +413,7 @@ $.fn.popup = function(parameters) {
           }
           if(settings.on == 'click' && settings.clicktoClose) {
             module.debug('Binding popup close event');
-            $(document)
+            $document
               .on('click.' + namespace, module.gracefully.hide)
             ;
           }
@@ -434,18 +435,18 @@ $.fn.popup = function(parameters) {
             module.debug('Hiding pop-up');
             if(settings.transition && $.fn.transition !== undefined) {
               $popup
-                .transition(settings.transition + ' out', settings.duration)
+                .transition(settings.transition + ' out', settings.duration, module.reset)
               ;
             }
             else {
               $popup
                 .stop()
-                .fadeOut(settings.duration, settings.easing)
+                .fadeOut(settings.duration, settings.easing, module.reset)
               ;
             }
           }
           if(settings.on == 'click' && settings.clicktoClose) {
-            $(document)
+            $document
               .off('click.' + namespace)
             ;
           }
@@ -453,6 +454,14 @@ $.fn.popup = function(parameters) {
           if(!settings.inline) {
             module.remove();
           }
+        },
+
+        reset: function() {
+          module.verbose('Resetting inline styles');
+          $popup
+            .attr('style', '')
+            .removeAttr('style')
+          ;
         },
 
         gracefully: {

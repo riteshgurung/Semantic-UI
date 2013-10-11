@@ -1,6 +1,73 @@
 ## RELEASE NOTES
 
-### Version 0.3.3- Oct 2, 2013
+### Version 0.4.3 - Oct 10, 2013
+
+**Fixes**
+- Updates dropdown to include proper invoke
+
+### Version 0.4.2 - Oct 9, 2013
+
+**Fixes**
+- Fixes issue with event bubbling being cancelled on dropdown item click
+
+### Version 0.4.1 - Oct 9, 2013
+
+**Fixes**
+- Fixes heart rating color
+
+### Version 0.4.0 - Oct 8, 2013
+
+**Updates**
+- Updated some checkbox stylings
+- Checkboxes markup now more semantic with default markup including only one label tag that can be inside ui checkbox
+
+### Version 0.3.8 - Oct 8, 2013
+
+**Fixes**
+- Display issues with accordion
+
+### Version 0.3.7 - Oct 8, 2013
+
+**Fixes**
+- Fixes modal show/hide action reversal in Webkit
+
+**Updates**
+- Dimmer can now take different durations for its show and hide
+
+### Version 0.3.6 - Oct 7, 2013
+
+**Fixes**
+- Fixes popup position sometimes appearing off-stage on second apperance
+- Fixes popup positions top left, top right, bottom left, bottom right being flipped
+
+**Docs**
+- Updates form and accordion docs
+
+**Updates**
+- Dropdown action default is now automatically determined based on type of dropdown, select dropdowns now will update form fields with default options
+- Adds fluid variation to accordion
+- Adds more html5 form support for forms (deneuxa)
+- Fields can include both field and another level of fields
+
+### Version 0.3.5 - Oct 2, 2013
+
+**Fixes**
+- Fixes radio checkboxes (again)
+- Fixes header content display in icon headers
+
+### Version 0.3.4 - Oct 2, 2013
+
+**Fixes**
+- Transitions now work in Safari versions that do not support animation-direction
+- Fixes accordion in safari styles getting stuck
+- Centering of content in icon header
+
+### Version 0.3.3 - Oct 2, 2013
+
+**Fixes**
+- Fixes modal not working due to destroy teardown in dimmer Issue #153
+- Fixes selector for checkbox to fix radio boxes Issue #154
+- Fixes issue with popup display in some edge cases Issue #128
 
 **Fixes**
 - Fixes modal not working due to destroy teardown in dimmer
@@ -12,7 +79,7 @@
 - Updates ACE editor library
 - Code samples now do not change after interacting with examples
 
-### Version 0.3.2- Oct 2, 2013
+### Version 0.3.2 - Oct 2, 2013
 
 **Updates**
 - Dropdown now formats top and right arrow icons automatically with icon coupling with sub menus
@@ -33,25 +100,25 @@
 - Lists items now auto clear floats
 - Fixes icon input inside a menu placement issues
 
-### Version 0.3.1- Sep 30, 2013
+### Version 0.3.1 - Sep 30, 2013
 
 **Fixes**
 - Fixes Page Grid still receiving negative margin
 
-### Version 0.3.0- Sep 30, 2013
+### Version 0.3.0 - Sep 30, 2013
 
 **Fixes**
 - Responsive Grid is now called "Page Grid". Responsive grids are now deprecated. This reduces confusion.
 - Negative margins are now automatically removed from grids that are descendents of body tag.
 
-### Version 0.2.5- Sep 28, 2013
+### Version 0.2.5 - Sep 28, 2013
 
 **Fixes**
 - Fixes checkbox  selector issue with multiple inputs inside a checkbox
 - Modal no longer uses inline css to center when in fixed position mode
 - Fixes dropdown to now set active item to whatever hidden input field is when using action updateForm
 
-### Version 0.2.4- Sep 28, 2013
+### Version 0.2.4 - Sep 28, 2013
 
 **Updates**
 
